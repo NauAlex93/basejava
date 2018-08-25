@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Array based storage for Resumes
@@ -7,6 +6,7 @@ import java.util.Objects;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     private int size = 0;
+    private Integer resumeId;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -14,27 +14,42 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        if (resume != null && storage.length > size) {
-            storage[size++] = resume;
+        if (storage.length == size) {
+            System.out.println("Storage is full.");
+            return;
+        }
+        if (returnResumeId(resume.uuid) == null) {
+            if (resume != null) {
+                storage[size++] = resume;
+            }
+        } else {
+            System.out.println("Resume already in storage!");
         }
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].uuid)) {
-                return storage[i];
-            }
+        if (returnResumeId(uuid) != null) {
+            return storage[resumeId];
         }
+
+        System.out.println("Resume is not in storage!");
         return null;
     }
 
+    void update(Resume resume) {
+        if (returnResumeId(resume.uuid) != null) {
+            storage[resumeId] = resume;
+        } else {
+            System.out.println("Resume is not in storage!");
+        }
+    }
+
     void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[--size];
-                storage[size] = null;
-                break;
-            }
+        if (returnResumeId(uuid) != null) {
+            storage[resumeId] = storage[--size];
+            storage[size] = null;
+        } else {
+            System.out.println("Resume is not in storage!");
         }
     }
 
@@ -47,5 +62,18 @@ public class ArrayStorage {
 
     int size() {
         return size;
+    }
+
+    Integer returnResumeId(String uuid) {
+        resumeId = null;
+
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].uuid)) {
+                resumeId = i;
+                return resumeId;
+            }
+        }
+
+        return resumeId;
     }
 }
