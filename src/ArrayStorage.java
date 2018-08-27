@@ -19,7 +19,7 @@ public class ArrayStorage implements Storage {
             System.out.println("Storage is full.");
             return;
         }
-        if (returnResumeId(resume.getUuid()) == -1) {
+        if (returnResumeIndex(resume.getUuid()) == -1) {
             storage[size++] = resume;
         } else {
             System.out.println("Resume already in storage!");
@@ -27,7 +27,7 @@ public class ArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        int resumeId = returnResumeId(uuid);
+        int resumeId = returnResumeIndex(uuid);
 
         if (resumeId != -1) {
             return storage[resumeId];
@@ -38,7 +38,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void update(Resume resume) {
-        int resumeId = returnResumeId(resume.getUuid());
+        int resumeId = returnResumeIndex(resume.getUuid());
 
         if (resumeId != -1) {
             storage[resumeId] = resume;
@@ -48,7 +48,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int resumeId = returnResumeId(uuid);
+        int resumeId = returnResumeIndex(uuid);
 
         if (resumeId != -1) {
             storage[resumeId] = storage[--size];
@@ -66,7 +66,7 @@ public class ArrayStorage implements Storage {
         return size;
     }
 
-    private int returnResumeId(String uuid) {
+    private int returnResumeIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
