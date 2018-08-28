@@ -1,9 +1,13 @@
+package ru.javawebinar.basejava.storage;
+
+import ru.javawebinar.basejava.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage {
+public class ArrayStorage extends AbstractArrayStorage {
     private static final int STORAGE_LIMIT = 10000;
 
     private Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -16,45 +20,34 @@ public class ArrayStorage implements Storage {
 
     public void save(Resume resume) {
         if (size == STORAGE_LIMIT) {
-            System.out.println("Storage is full.");
+            System.out.println("ru.javawebinar.basejava.storage.Storage is full.");
             return;
         }
-        if (returnResumeIndex(resume.getUuid()) == -1) {
+        if (getResumeIndex(resume.getUuid()) == -1) {
             storage[size++] = resume;
         } else {
-            System.out.println("Resume already in storage!");
+            System.out.println("ru.javawebinar.basejava.model.Resume already in storage!");
         }
-    }
-
-    public Resume get(String uuid) {
-        int resumeId = returnResumeIndex(uuid);
-
-        if (resumeId != -1) {
-            return storage[resumeId];
-        }
-
-        System.out.println("Resume is not in storage!");
-        return null;
     }
 
     public void update(Resume resume) {
-        int resumeId = returnResumeIndex(resume.getUuid());
+        int resumeId = getResumeIndex(resume.getUuid());
 
         if (resumeId != -1) {
             storage[resumeId] = resume;
         } else {
-            System.out.println("Resume is not in storage!");
+            System.out.println("ru.javawebinar.basejava.model.Resume is not in storage!");
         }
     }
 
     public void delete(String uuid) {
-        int resumeId = returnResumeIndex(uuid);
+        int resumeId = getResumeIndex(uuid);
 
         if (resumeId != -1) {
             storage[resumeId] = storage[--size];
             storage[size] = null;
         } else {
-            System.out.println("Resume is not in storage!");
+            System.out.println("ru.javawebinar.basejava.model.Resume is not in storage!");
         }
     }
 
@@ -62,11 +55,7 @@ public class ArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
-    public int size() {
-        return size;
-    }
-
-    private int returnResumeIndex(String uuid) {
+    protected int getResumeIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
