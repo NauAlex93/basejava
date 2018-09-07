@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
@@ -27,7 +28,7 @@ public abstract class AbstractArrayStorage implements Storage {
             insertResume(resume, index);
             size++;
         } else {
-            System.out.println("Resume already in storage!");
+            throw new ExistStorageException(resume.getUuid());
         }
     }
 
