@@ -30,9 +30,4 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             size --;
         }
     }
-
-    @Override
-    protected boolean isExist(Object uuid) {
-        return (int) uuid >= 0;
-    }
 }

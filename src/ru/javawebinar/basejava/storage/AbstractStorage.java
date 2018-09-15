@@ -7,13 +7,10 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage{
 
-    protected static final int STORAGE_LIMIT = 10000;
-    protected int size = 0;
-
     public void save(Resume resume) {
         Object index = getResumeIndex(resume.getUuid());
 
-        if (getSize() == STORAGE_LIMIT) {
+        if (isFull()) {
             throw new StorageException("Storage is full.", resume.getUuid());
         }
         if (!isExist(index)) {
@@ -55,8 +52,6 @@ public abstract class AbstractStorage implements Storage{
 
     protected abstract boolean isExist(Object uuid);
 
-    public abstract int getSize();
-
     protected abstract void deleteResume(Object resumeIndex);
 
     protected abstract Object getResumeIndex(String uuid);
@@ -66,5 +61,7 @@ public abstract class AbstractStorage implements Storage{
     protected abstract void updateResume(Resume resume, Object resumeIndex);
 
     protected abstract Resume getResume(Object resumeIndex);
+
+    protected abstract boolean isFull();
 
 }

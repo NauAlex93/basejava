@@ -29,9 +29,4 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[(int) resumeIndex] = storage[size - 1];
         storage[--size] = null;
     }
-
-    @Override
-    protected boolean isExist(Object uuid) {
-        return (int) uuid != -1;
-    }
 }

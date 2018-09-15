@@ -6,6 +6,9 @@ import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
+    protected static final int STORAGE_LIMIT = 10000;
+    protected int size = 0;
+
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     public void clear() {
@@ -30,5 +33,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int getSize() {
         return size;
+    }
+
+    @Override
+    protected boolean isFull() {
+        return size == STORAGE_LIMIT;
+    }
+
+    @Override
+    protected boolean isExist(Object uuid) {
+        return (int) uuid >= 0;
     }
 }

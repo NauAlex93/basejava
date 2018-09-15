@@ -39,7 +39,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public void clear() {
-        storage = new HashMap<>();
+        storage.clear();
     }
 
     @Override
@@ -52,5 +52,10 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected boolean isExist(Object uuid) {
         return storage.containsKey(uuid);
+    }
+
+    @Override
+    protected boolean isFull() {
+        return false;
     }
 }
