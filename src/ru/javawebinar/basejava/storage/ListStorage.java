@@ -57,9 +57,4 @@ public class ListStorage extends AbstractStorage {
     protected boolean isExist(Object uuid) {
         return uuid != null;
     }
-
-    @Override
-    protected boolean isFull() {
-        return false;
-    }
 }

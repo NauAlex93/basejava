@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -10,6 +11,21 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected int size = 0;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
+
+    @Override
+    protected void insertResume(Resume resume, Object resumeIndex) {
+        if (isFull()) {
+            throw new StorageException("Storage is full.", resume.getUuid());
+        }
+        saveImpl(resume, resumeIndex);
+        size++;
+    }
+
+    @Override
+    protected void deleteResume(Object resumeIndex) {
+        deleteImpl(resumeIndex);
+        size--;
+    }
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -35,7 +51,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    @Override
     protected boolean isFull() {
         return size == STORAGE_LIMIT;
     }
@@ -44,4 +59,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected boolean isExist(Object uuid) {
         return (int) uuid >= 0;
     }
+
+    protected abstract void saveImpl(Resume resume, Object resumeIndex);
+
+    protected abstract void deleteImpl(Object resumeIndex);
 }

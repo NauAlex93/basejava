@@ -2,7 +2,6 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage{
@@ -10,9 +9,6 @@ public abstract class AbstractStorage implements Storage{
     public void save(Resume resume) {
         Object index = getResumeIndex(resume.getUuid());
 
-        if (isFull()) {
-            throw new StorageException("Storage is full.", resume.getUuid());
-        }
         if (!isExist(index)) {
             insertResume(resume, index);
         } else {
@@ -61,7 +57,5 @@ public abstract class AbstractStorage implements Storage{
     protected abstract void updateResume(Resume resume, Object resumeIndex);
 
     protected abstract Resume getResume(Object resumeIndex);
-
-    protected abstract boolean isFull();
 
 }

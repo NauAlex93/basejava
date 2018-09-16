@@ -54,8 +54,4 @@ public class MapStorage extends AbstractStorage {
         return storage.containsKey(uuid);
     }
 
-    @Override
-    protected boolean isFull() {
-        return false;
-    }
 }
