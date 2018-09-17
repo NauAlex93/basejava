@@ -17,14 +17,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (isFull()) {
             throw new StorageException("Storage is full.", resume.getUuid());
         }
-        saveImpl(resume, resumeIndex);
+        saveImpl(resume, (Integer) resumeIndex);
         size++;
     }
 
     @Override
     protected void deleteResume(Object resumeIndex) {
-        deleteImpl(resumeIndex);
-        size--;
+        deleteImpl((Integer) resumeIndex);
+        storage[--size] = null;
     }
 
     public void clear() {
@@ -38,12 +38,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void updateResume(Resume resume, Object resumeIndex) {
-        storage[(int) resumeIndex] = resume;
+        storage[(Integer) resumeIndex] = resume;
     }
 
     @Override
     protected Resume getResume(Object resumeIndex) {
-        return storage[(int) resumeIndex];
+        return storage[(Integer) resumeIndex];
     }
 
     @Override
@@ -57,10 +57,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object uuid) {
-        return (int) uuid >= 0;
+        return (Integer) uuid >= 0;
     }
 
-    protected abstract void saveImpl(Resume resume, Object resumeIndex);
+    protected abstract void saveImpl(Resume resume, int resumeIndex);
 
-    protected abstract void deleteImpl(Object resumeIndex);
+    protected abstract void deleteImpl(int resumeIndex);
 }

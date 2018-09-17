@@ -8,13 +8,13 @@ public class MapStorage extends AbstractStorage {
     protected Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected Object getResumeIndex(String uuid) {
+    protected String getResumeIndex(String uuid) {
         return uuid;
     }
 
     @Override
     protected void deleteResume(Object resumeIndex) {
-        storage.remove((String) resumeIndex);
+        storage.remove(resumeIndex);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume getResume(Object resumeIndex) {
-        return storage.get((String) resumeIndex);
+        return storage.get(resumeIndex);
     }
 
     @Override
