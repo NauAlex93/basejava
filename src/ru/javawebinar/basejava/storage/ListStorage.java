@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -44,8 +45,9 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[storage.size()]);
+    public List<Resume> getAllSorted() {
+        Collections.sort(storage);
+        return storage;
     }
 
     @Override

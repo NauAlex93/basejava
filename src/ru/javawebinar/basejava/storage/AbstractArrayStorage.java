@@ -4,6 +4,7 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -30,10 +31,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
     }
 
     @Override
