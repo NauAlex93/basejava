@@ -10,10 +10,10 @@ public class MainCollection {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
 
-    private static final Resume RESUME1 = new Resume(UUID_1);
-    private static final Resume RESUME2 = new Resume(UUID_2);
-    private static final Resume RESUME3 = new Resume(UUID_3);
-    private static final Resume RESUME4 = new Resume(UUID_4);
+    private static final Resume RESUME1 = new Resume(UUID_1, "f");
+    private static final Resume RESUME2 = new Resume(UUID_2, "d");
+    private static final Resume RESUME3 = new Resume(UUID_3, "s");
+    private static final Resume RESUME4 = new Resume(UUID_4, "a");
 
     public static void main(String[] args) {
         Collection<Resume> collection = new ArrayList<>();
@@ -32,7 +32,7 @@ public class MainCollection {
         while (iterator.hasNext()) {
             Resume resume = iterator.next();
             System.out.println(resume);
-            if(Objects.equals(resume.getUuid(), UUID_1)) {
+            if (Objects.equals(resume.getUuid(), UUID_1)) {
                 iterator.remove();
             }
         }
@@ -43,7 +43,7 @@ public class MainCollection {
         map.put(UUID_2, RESUME2);
         map.put(UUID_3, RESUME3);
 
-        for(String uuid : map.keySet()) {
+        for (String uuid : map.keySet()) {
             System.out.println(map.get(uuid));
         }
 
