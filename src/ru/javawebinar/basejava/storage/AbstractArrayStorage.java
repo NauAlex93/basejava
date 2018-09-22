@@ -32,7 +32,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
-
+    
     @Override
     protected void updateResume(Resume resume, Object resumeIndex) {
         storage[(Integer) resumeIndex] = resume;
