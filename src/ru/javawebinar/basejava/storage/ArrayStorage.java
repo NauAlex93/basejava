@@ -30,10 +30,4 @@ public class ArrayStorage extends AbstractArrayStorage {
     protected void deleteImpl(int resumeIndex) {
         storage[resumeIndex] = storage[size - 1];
     }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        Arrays.sort(storage);
-        return Arrays.asList(storage);
-    }
 }
