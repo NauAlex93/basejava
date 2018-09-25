@@ -22,6 +22,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size++;
     }
 
+    private boolean isFull() {
+        return size == STORAGE_LIMIT;
+    }
+
     @Override
     protected void deleteResume(Object resumeIndex) {
         deleteImpl((Integer) resumeIndex);
@@ -39,6 +43,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
+    protected List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+    }
+
+    @Override
     protected Resume getResume(Object resumeIndex) {
         return storage[(Integer) resumeIndex];
     }
@@ -46,10 +55,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int getSize() {
         return size;
-    }
-
-    protected boolean isFull() {
-        return size == STORAGE_LIMIT;
     }
 
     @Override

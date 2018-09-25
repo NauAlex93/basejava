@@ -2,29 +2,33 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage{
+
     protected Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected String getResumeIndex(String uuid) {
-        return uuid;
+    protected Resume getResumeIndex(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
     protected void deleteResume(Object resumeIndex) {
-        storage.remove(resumeIndex);
+        storage.remove((Resume) resumeIndex).getUuid();
     }
 
     @Override
     protected void insertResume(Resume resume, Object resumeIndex) {
-        storage.put((String) resumeIndex, resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
     protected void updateResume(Resume resume, Object resumeIndex) {
-        storage.put((String) resumeIndex, resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -51,5 +55,4 @@ public class MapStorage extends AbstractStorage {
     protected boolean isExist(Object uuid) {
         return storage.containsKey(uuid);
     }
-
 }
