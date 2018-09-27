@@ -4,7 +4,6 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
