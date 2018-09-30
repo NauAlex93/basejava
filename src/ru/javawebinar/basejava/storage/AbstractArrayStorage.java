@@ -6,7 +6,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
@@ -14,11 +14,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     @Override
-    protected void insertResume(Resume resume, Object resumeIndex) {
+    protected void insertResume(Resume resume, Integer resumeIndex) {
         if (isFull()) {
             throw new StorageException("Storage is full.", resume.getUuid());
         }
-        saveImpl(resume, (Integer) resumeIndex);
+        saveImpl(resume, resumeIndex);
         size++;
     }
 
@@ -27,8 +27,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(Object resumeIndex) {
-        deleteImpl((Integer) resumeIndex);
+    protected void deleteResume(Integer resumeIndex) {
+        deleteImpl(resumeIndex);
         storage[--size] = null;
     }
 
@@ -38,8 +38,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
     
     @Override
-    protected void updateResume(Resume resume, Object resumeIndex) {
-        storage[(Integer) resumeIndex] = resume;
+    protected void updateResume(Resume resume, Integer resumeIndex) {
+        storage[resumeIndex] = resume;
     }
 
     @Override
@@ -48,8 +48,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object resumeIndex) {
-        return storage[(Integer) resumeIndex];
+    protected Resume getResume(Integer resumeIndex) {
+        return storage[resumeIndex];
     }
 
     @Override
@@ -58,8 +58,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return (Integer) uuid >= 0;
+    protected boolean isExist(Integer uuid) {
+        return uuid >= 0;
     }
 
     protected abstract void saveImpl(Resume resume, int resumeIndex);
