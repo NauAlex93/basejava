@@ -1,0 +1,37 @@
+package ru.javawebinar.basejava.model;
+
+import java.util.List;
+import java.util.Objects;
+
+public class CareerSection extends Section {
+    private final List<Career> workPlaces;
+
+    public CareerSection(List<Career> workPlaces) {
+        this.workPlaces = workPlaces;
+    }
+
+    public List<Career> getWorkPlaces() {
+        return workPlaces;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CareerSection that = (CareerSection) o;
+        return Objects.equals(workPlaces, that.workPlaces);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(workPlaces);
+    }
+
+    @Override
+    public String toString() {
+        return "CareerSection{" +
+                "workPlaces=" + workPlaces +
+                '}';
+    }
+}
