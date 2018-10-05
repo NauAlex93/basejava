@@ -10,10 +10,10 @@ public class Career {
     private final String title;
     private final String description;
 
-    public Career(String link, YearMonth startDdate, YearMonth endDdate, String title, String description) {
+    public Career(String link, YearMonth startDate, YearMonth endDate, String title, String description) {
         this.link = link;
-        this.startDate = startDdate;
-        this.endDate = endDdate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.title = title;
         this.description = description;
     }
