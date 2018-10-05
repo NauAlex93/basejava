@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,8 +30,6 @@ public class ListSection extends Section {
 
     @Override
     public String toString() {
-        return "ListSection{" +
-                "infoSections=" + infoSections +
-                '}';
+        return infoSections.toString();
     }
 }

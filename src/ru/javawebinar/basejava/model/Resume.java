@@ -33,8 +33,20 @@ public class Resume implements Comparable<Resume> {
         return sections;
     }
 
+    public void addContact(ContactType contactType, String value) {
+        contacts.put(contactType, value);
+    }
+
+    public void addSection(SectionType sectionType, Section value) {
+        sections.put(sectionType, value);
+    }
+
     public String getUuid() {
         return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     @Override

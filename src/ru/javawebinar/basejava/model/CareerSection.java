@@ -30,8 +30,6 @@ public class CareerSection extends Section {
 
     @Override
     public String toString() {
-        return "CareerSection{" +
-                "workPlaces=" + workPlaces +
-                '}';
+        return workPlaces.toString();
     }
 }

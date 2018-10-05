@@ -29,8 +29,6 @@ public class TextSection extends Section {
 
     @Override
     public String toString() {
-        return "TextSection{" +
-                "text='" + text + '\'' +
-                '}';
+        return text;
     }
 }
