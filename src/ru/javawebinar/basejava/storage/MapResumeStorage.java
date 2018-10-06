@@ -9,13 +9,13 @@ public class MapResumeStorage extends AbstractStorage<Resume>{
     protected Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected Resume getResumeIndex(String uuid) {
+    protected Resume getSearchKey(String uuid) {
         return storage.get(uuid);
     }
 
     @Override
-    protected void deleteResume(Resume resumeIndex) {
-        storage.remove(resumeIndex).getUuid();
+    protected void deleteResume(Resume resume) {
+        storage.remove(resume.getUuid());
     }
 
     @Override

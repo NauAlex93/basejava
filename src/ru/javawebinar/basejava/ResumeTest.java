@@ -3,6 +3,7 @@ package ru.javawebinar.basejava;
 import ru.javawebinar.basejava.model.*;
 
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -18,34 +19,69 @@ public class ResumeTest {
         resume.addContact(ContactType.STATCKOVERFLOW, "https://stackoverflow.com/users/548473");
         resume.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
-        resume.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
-        resume.addSection(SectionType.OBJECTIVE, new TextSection("Position"));
-        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Education project", "Development of Rich Internet Application")));
-        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Java", "DB", "C/C++", "Python")));
+        TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+
+        ArrayList<String> achList = new ArrayList<>();
+        achList.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.");
+        achList.add("Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.");
+        achList.add("Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.");
+        achList.add("Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга.");
+        achList.add("Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).");
+        achList.add("Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
+        ListSection achievement = new ListSection(achList);
+
+        ArrayList<String> qualList = new ArrayList<>();
+        qualList.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2.");
+        qualList.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce.");
+        qualList.add("DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle, MySQL, SQLite, MS SQL, HSQLDB.");
+        qualList.add("Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy, XML/XSD/XSLT, SQL, C/C++, Unix shell scripts.");
+        qualList.add("Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security, Data, Clouds, Boot), JPA (Hibernate, EclipseLink), Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons, Eclipse SWT, JUnit, Selenium (htmlelements).");
+        qualList.add("Python: Django.");
+        qualList.add("JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js");
+        qualList.add("Scala: SBT, Play2, Specs2, Anorm, Spray, Akka");
+        qualList.add("Технологии: Servlet, JSP/JSTL, JAX-WS, REST, EJB, RMI, JMS, JavaMail, JAXB, StAX, SAX, DOM, XSLT, MDB, JMX, JDBC, JPA, JNDI, JAAS, SOAP, AJAX, Commet, HTML5, ESB, CMIS, BPMN2, LDAP, OAuth1, OAuth2, JWT.");
+        qualList.add("Инструменты: Maven + plugin development, Gradle, настройка Ngnix, администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.");
+        qualList.add("Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования.");
+        qualList.add("Родной русский, английский \"upper intermediate\"");
+        ListSection qualifications = new ListSection(qualList);
+
+        resume.addSection(SectionType.OBJECTIVE, objective);
+        resume.addSection(SectionType.PERSONAL, personal);
+        resume.addSection(SectionType.ACHIEVEMENT, achievement);
+        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
         resume.addSection(SectionType.EXPERIENCE, new CareerSection(
                 Arrays.asList(
-                        new Career("Java Online Projects", YearMonth.of(2013, 10), YearMonth.now(), "Project author", "Description"),
-                        new Career("Wrike", YearMonth.of(2014, 10), YearMonth.of(2016, 01), "Senior Developer", "Description")
+                        new Career("Java Online Projects", "http://javaops.ru/", YearMonth.of(2013, 10), YearMonth.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."),
+                        new Career("Wrike", "https://www.wrike.com/", YearMonth.of(2014, 10), YearMonth.of(2016, 01), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike " +
+                                "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
+                                "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."),
+                        new Career("RIT Center", "", YearMonth.of(2012, 04), YearMonth.of(2014, 10), "Java архитектор", "Организация процесса разработки системы ERP для разных окружений: " +
+                                "релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), " +
+                                "AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). " +
+                                "Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, " +
+                                "Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"),
+                        new Career("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/", YearMonth.of(2012, 10), YearMonth.of(2012, 04), "Ведущий программист", "Участие в проекте Deutsche Bank CRM " +
+                                "(WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). " +
+                                "Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. " +
+                                "JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5.")
+
                 )));
         resume.addSection(SectionType.EDUCATION, new CareerSection(
                 Arrays.asList(
-                        new Career("Coursera", YearMonth.of(2013, 03), YearMonth.of(2013, 05), "Functional Programming Principles in Scala", "Description"),
-                        new Career("Luxoft", YearMonth.of(2011, 03), YearMonth.of(2011, 04), "UML", "Description")
+                        new Career("Coursera", "https://www.coursera.org/course/progfun", YearMonth.of(2013, 03), YearMonth.of(2013, 05), "Functional Programming Principles in Scala", "by Martin Odersky"),
+                        new Career("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366", YearMonth.of(2011, 03), YearMonth.of(2011, 04), "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML", "Курс"),
+                        new Career("Siemens AG", "http://www.siemens.ru/", YearMonth.of(2005, 01), YearMonth.of(2005, 04), "3 месяца обучения мобильным IN сетям", "Берлин")
                 )));
 
         System.out.println(resume.getFullName());
 
-        for (Map.Entry<ContactType, String> contact : resume.getContacts().entrySet())
-        {
-            System.out.println(contact.getKey().getTitle() + ": " + contact.getValue());
+        for (ContactType contact : ContactType.values()) {
+            System.out.println(resume.getContact(contact));
         }
 
-        System.out.println();
-
-        for (Map.Entry<SectionType, Section> section : resume.getSections().entrySet()) {
-            System.out.println();
-            System.out.println(section.getKey().getTitle());
-            System.out.println(section.getValue().toString());
+        for (SectionType section : SectionType.values()) {
+            System.out.println(resume.getSection(section).toString());
         }
 
     }

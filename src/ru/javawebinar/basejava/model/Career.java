@@ -4,21 +4,21 @@ import java.time.YearMonth;
 import java.util.Objects;
 
 public class Career {
-    private final String link;
+    private final Link link;
     private final YearMonth startDate;
     private final YearMonth endDate;
     private final String title;
     private final String description;
 
-    public Career(String link, YearMonth startDate, YearMonth endDate, String title, String description) {
-        this.link = link;
+    public Career(String name, String url, YearMonth startDate, YearMonth endDate, String title, String description) {
+        this.link = new Link(name, url);
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
         this.description = description;
     }
 
-    public String getLink() {
+    public Link getLink() {
         return link;
     }
 

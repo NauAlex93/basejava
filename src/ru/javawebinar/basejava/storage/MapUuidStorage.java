@@ -8,7 +8,7 @@ public class MapUuidStorage extends AbstractStorage<String> {
     protected Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected String getResumeIndex(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 

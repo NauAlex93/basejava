@@ -3,7 +3,7 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 import java.util.Objects;
 
-public class CareerSection extends Section {
+public class CareerSection extends AbstractSection {
     private final List<Career> workPlaces;
 
     public CareerSection(List<Career> workPlaces) {
