@@ -5,12 +5,21 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
 
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
+
+    private static class ResumeComparator implements Comparator<Resume> {
+        @Override
+        public int compare(Resume o1, Resume o2) {
+            int compare = o1.getFullName().compareTo(o2.getFullName());
+            return compare == 0 ? o1.getUuid().compareTo(o2.getUuid()): compare;
+        }
+    }
 
     public void save(Resume resume) {
         LOG.info("Save " + resume);
@@ -40,7 +49,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     public List<Resume> getAllSorted() {
         LOG.info("getAllSorted");
         List<Resume> resultList = getAll();
-        Collections.sort(resultList);
+        Collections.sort(resultList, new ResumeComparator());
         return resultList;
     }
 

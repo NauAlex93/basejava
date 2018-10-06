@@ -19,13 +19,13 @@ public class MapResumeStorage extends AbstractStorage<Resume>{
     }
 
     @Override
-    protected void insertResume(Resume resume, Resume resumeIndex) {
-        storage.put(resume.getUuid(), resume);
+    protected void insertResume(Resume r, Resume resume) {
+        storage.put(r.getUuid(), r);
     }
 
     @Override
-    protected void updateResume(Resume resume, Resume resumeIndex) {
-        storage.put(resume.getUuid(), resume);
+    protected void updateResume(Resume r, Resume resume) {
+        storage.put(r.getUuid(), r);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class MapResumeStorage extends AbstractStorage<Resume>{
     }
 
     @Override
-    protected Resume getResume(Resume resumeIndex) {
-        return resumeIndex;
+    protected Resume getResume(Resume resume) {
+        return resume;
     }
 
     @Override

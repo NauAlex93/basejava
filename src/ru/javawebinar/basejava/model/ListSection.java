@@ -6,11 +6,11 @@ import java.util.Objects;
 public class ListSection extends AbstractSection {
     private final List<String> content;
 
-    public ListSection(List<String> infoSections) {
-        this.content = infoSections;
+    public ListSection(List<String> content) {
+        this.content = content;
     }
 
-    public List<String> getInfoSections() {
+    public List<String> getContent() {
         return content;
     }
 

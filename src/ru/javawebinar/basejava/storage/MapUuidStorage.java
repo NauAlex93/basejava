@@ -13,18 +13,18 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected void deleteResume(String resumeIndex) {
-        storage.remove(resumeIndex);
+    protected void deleteResume(String uuid) {
+        storage.remove(uuid);
     }
 
     @Override
-    protected void insertResume(Resume resume, String resumeIndex) {
-        storage.put(resumeIndex, resume);
+    protected void insertResume(Resume resume, String uuid) {
+        storage.put(uuid, resume);
     }
 
     @Override
-    protected void updateResume(Resume resume, String resumeIndex) {
-        storage.put(resumeIndex, resume);
+    protected void updateResume(Resume resume, String uuid) {
+        storage.put(uuid, resume);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected Resume getResume(String resumeIndex) {
-        return storage.get(resumeIndex);
+    protected Resume getResume(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
