@@ -7,6 +7,7 @@ public class CareerSection extends AbstractSection {
     private final List<Career> workPlaces;
 
     public CareerSection(List<Career> workPlaces) {
+        Objects.requireNonNull(workPlaces, "workPlaces must not be null");
         this.workPlaces = workPlaces;
     }
 
