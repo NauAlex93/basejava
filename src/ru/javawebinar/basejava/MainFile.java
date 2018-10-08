@@ -40,7 +40,6 @@ public class MainFile {
         if (files != null) {
             for (File f : files) {
                 if (f.isDirectory()) {
-                    System.out.println(f.getName());
                     printFileNames(f);
                 }
                 if (f.isFile()) {

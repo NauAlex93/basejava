@@ -35,7 +35,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public int getSize() {
-        return directory.listFiles().length;
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("IO error", "");
+        }
+        return files.length;
     }
 
     @Override
@@ -44,9 +48,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void updateResume(Resume r, File file) {
+    protected void updateResume(Resume resume, File file) {
         try {
-            doWrite(r, file);
+            doWrite(resume, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
@@ -58,10 +62,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void insertResume(Resume r, File file) {
+    protected void insertResume(Resume resume, File file) {
         try {
             file.createNewFile();
-            doWrite(r, file);
+            doWrite(resume, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
@@ -84,16 +88,18 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> getAll() {
         File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("IO error", "");
+        }
+
         List<Resume> list = new ArrayList<>();
-        if (!list.isEmpty()) {
-            for (File file : files) {
-                list.add(getResume(file));
-            }
+        for (File file : files) {
+            list.add(getResume(file));
         }
         return list;
     }
 
-    protected abstract void doWrite(Resume r, File file) throws IOException;
+    protected abstract void doWrite(Resume resume, File file) throws IOException;
 
     protected abstract void doDelete(File file);
 
