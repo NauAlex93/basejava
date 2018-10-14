@@ -31,19 +31,20 @@ public class MainFile {
             throw new RuntimeException("Error", e);
         }
 
-        printFileNames(dir);
+        printFileNames(dir, "");
     }
 
-    public static void printFileNames(File dir) {
+    public static void printFileNames(File dir, String prefix) {
         File[] files = dir.listFiles();
 
         if (files != null) {
             for (File f : files) {
                 if (f.isDirectory()) {
-                    printFileNames(f);
+                    System.out.println(prefix + "Directory: " + f.getName());
+                    printFileNames(f, prefix + " ");
                 }
                 if (f.isFile()) {
-                    System.out.println(f.getName());
+                    System.out.println(prefix + "File: " + f.getName());
                 }
             }
         }
