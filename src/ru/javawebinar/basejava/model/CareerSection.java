@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class CareerSection extends AbstractSection {
+
+    private static final long serialVersionUID = 1L;
+
     private final List<Career> workPlaces;
 
     public CareerSection(List<Career> workPlaces) {

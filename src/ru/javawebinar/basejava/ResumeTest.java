@@ -7,16 +7,39 @@ import java.time.Month;
 import java.util.ArrayList;
 
 public class ResumeTest {
-    public static void main(String[] args) {
-        Resume resume = new Resume("uuid1", "Григорий Кислин");
 
-        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "grigory.kislin");
-        resume.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-        resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        resume.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        resume.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+    private static final String UUID_1;
+    private static final String UUID_2;
+    private static final String UUID_3;
+    private static final String UUID_4;
+
+    private static final Resume RESUME1;
+    private static final Resume RESUME2;
+    private static final Resume RESUME3;
+    private static final Resume RESUME4;
+
+    static{
+        UUID_1 = "uuid1";
+        UUID_2 = "uuid2";
+        UUID_3 = "uuid3";
+        UUID_4 = "uuid4";
+
+        RESUME1 = new Resume(UUID_1, "Григорий Кислин");
+        RESUME2 = new Resume(UUID_2, "Кодер");
+        RESUME3 = new Resume(UUID_3, "Хакер");
+        RESUME4 = new Resume(UUID_4, "Юзер");
+    }
+
+
+    public static void main(String[] args) {
+
+        RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
+        RESUME1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+        RESUME1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        RESUME1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        RESUME1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+        RESUME1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
         TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
@@ -151,22 +174,53 @@ public class ResumeTest {
         )));
         CareerSection education = new CareerSection(educationList);
 
-        resume.addSection(SectionType.OBJECTIVE, objective);
-        resume.addSection(SectionType.PERSONAL, personal);
-        resume.addSection(SectionType.ACHIEVEMENT, achievement);
-        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
-        resume.addSection(SectionType.EXPERIENCE, experience);
-        resume.addSection(SectionType.EDUCATION, education);
+        RESUME1.addSection(SectionType.OBJECTIVE, objective);
+        RESUME1.addSection(SectionType.PERSONAL, personal);
+        RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
+        RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
+        RESUME1.addSection(SectionType.EXPERIENCE, experience);
+        RESUME1.addSection(SectionType.EDUCATION, education);
 
-        System.out.println(resume.getFullName());
+        System.out.println(RESUME1.getFullName());
 
         for (ContactType contact : ContactType.values()) {
-            System.out.println(resume.getContact(contact));
+            System.out.println(RESUME1.getContact(contact));
         }
 
         for (SectionType section : SectionType.values()) {
-            System.out.println(resume.getSection(section).toString());
+            System.out.println(RESUME1.getSection(section).toString());
         }
+    }
 
+    public static String getUuid1() {
+        return UUID_1;
+    }
+
+    public static String getUuid2() {
+        return UUID_2;
+    }
+
+    public static String getUuid3() {
+        return UUID_3;
+    }
+
+    public static String getUuid4() {
+        return UUID_4;
+    }
+
+    public static Resume getRESUME1() {
+        return RESUME1;
+    }
+
+    public static Resume getRESUME2() {
+        return RESUME2;
+    }
+
+    public static Resume getRESUME3() {
+        return RESUME3;
+    }
+
+    public static Resume getRESUME4() {
+        return RESUME4;
     }
 }

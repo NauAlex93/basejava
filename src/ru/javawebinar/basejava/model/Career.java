@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -51,7 +52,10 @@ public class Career {
         return link + ", " + positions ;
     }
 
-    public static class Position {
+    public static class Position implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         private final LocalDate startDate;
         private final LocalDate endDate;
         private final String title;
