@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.serializer.StreamSerializer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -37,13 +38,11 @@ public class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int getSize() {
-        int size;
         try {
-            size = (int) Files.list(directory).count();
+            return (int) Files.list(directory).count();
         } catch (IOException e) {
             throw new StorageException("IO error ", e.getMessage());
         }
-        return size;
     }
 
     @Override
@@ -95,12 +94,10 @@ public class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> getAll() {
-        List<Resume> list = new ArrayList<>();
         try {
-            list = Files.list(directory).map(this::getResume).collect(Collectors.toList());
+            return Files.list(directory).map(this::getResume).collect(Collectors.toList());
         } catch (IOException e) {
             throw new StorageException("IO error ", e.getMessage());
         }
-        return list;
     }
 }

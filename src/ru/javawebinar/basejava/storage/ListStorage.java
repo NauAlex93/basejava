@@ -19,18 +19,18 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void insertResume(Resume resume, Integer resumeIndex) {
+    protected void insertResume(Resume resume, Integer searchKey) {
         storage.add(resume);
     }
 
     @Override
-    protected void updateResume(Resume resume, Integer resumeIndex) {
-        storage.set(resumeIndex, resume);
+    protected void updateResume(Resume resume, Integer searchKey) {
+        storage.set(searchKey, resume);
     }
 
     @Override
-    protected void deleteResume(Integer resumeIndex) {
-        storage.remove(resumeIndex);
+    protected void deleteResume(Integer searchKey) {
+        storage.remove(searchKey.intValue());
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected Resume getResume(Integer resumeIndex) {
-        return storage.get(resumeIndex);
+    protected Resume getResume(Integer searchKey) {
+        return storage.get(searchKey);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected boolean isExist(Integer uuid) {
-        return uuid != null;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey != null;
     }
 }

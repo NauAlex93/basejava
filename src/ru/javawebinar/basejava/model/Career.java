@@ -13,7 +13,7 @@ import static ru.javawebinar.basejava.util.DateUtil.of;
 
 public class Career implements Serializable {
 
-    private static final long serialVersionUID = -6110387112587582111L;
+    private static final long serialVersionUID = 1L;
 
     private final Link link;
     private List<Position> positions;
