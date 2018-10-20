@@ -69,10 +69,10 @@ public class AbstractFileStorage extends AbstractStorage<File> {
     protected void insertResume(Resume resume, File file) {
         try {
             file.createNewFile();
-            streamSerializer.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        updateResume(resume, file);
     }
 
     @Override

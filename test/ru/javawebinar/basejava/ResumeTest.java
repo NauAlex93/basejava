@@ -28,10 +28,6 @@ public class ResumeTest {
         RESUME2 = new Resume(UUID_2, "Кодер");
         RESUME3 = new Resume(UUID_3, "Хакер");
         RESUME4 = new Resume(UUID_4, "Юзер");
-    }
-
-
-    public static void main(String[] args) {
 
         RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
         RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
@@ -87,56 +83,56 @@ public class ResumeTest {
                 "Java Online Projects",
                 "http://javaops.ru/",
                 new Career.Position(
-                    2013,
-                    Month.OCTOBER,
-                    LocalDate.now().getYear(),
-                    LocalDate.now().getMonth(),
-                    "Автор проекта.",
-                    "Создание, организация и проведение Java онлайн проектов и стажировок."
-        )));
+                        2013,
+                        Month.OCTOBER,
+                        LocalDate.now().getYear(),
+                        LocalDate.now().getMonth(),
+                        "Автор проекта.",
+                        "Создание, организация и проведение Java онлайн проектов и стажировок."
+                )));
         expList.add(new Career(
                 "Wrike",
                 "https://www.wrike.com/",
                 new Career.Position(
-                    2014,
-                    Month.OCTOBER,
-                    2016,
-                    Month.JANUARY,
-                    "Старший разработчик (backend)",
-                    "Проектирование и разработка онлайн платформы управления проектами Wrike " +
-                    "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
-                    "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."
-        )));
+                        2014,
+                        Month.OCTOBER,
+                        2016,
+                        Month.JANUARY,
+                        "Старший разработчик (backend)",
+                        "Проектирование и разработка онлайн платформы управления проектами Wrike " +
+                                "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
+                                "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."
+                )));
         expList.add(new Career(
                 "RIT Center",
                 "",
                 new Career.Position(
-                    2012,
-                    Month.APRIL,
-                    2014,
-                    Month.OCTOBER,
-                    "Java архитектор",
-                    "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, " +
-                    "ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), " +
-                    "AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
-                    "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN " +
-                    "для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, " +
-                    "Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, " +
-                    "Unix shell remote scripting via ssh tunnels, PL/Python"
-        )));
+                        2012,
+                        Month.APRIL,
+                        2014,
+                        Month.OCTOBER,
+                        "Java архитектор",
+                        "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, " +
+                                "ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), " +
+                                "AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, " +
+                                "1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN " +
+                                "для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, " +
+                                "Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, " +
+                                "Unix shell remote scripting via ssh tunnels, PL/Python"
+                )));
         expList.add(new Career(
                 "Luxoft (Deutsche Bank)",
                 "http://www.luxoft.ru/",
                 new Career.Position(
-                    2012,
-                    Month.OCTOBER,
-                    2012,
-                    Month.APRIL,
-                    "Ведущий программист",
-                    "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). " +
-                    "Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа " +
-                    "результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."
-        )));
+                        2012,
+                        Month.OCTOBER,
+                        2012,
+                        Month.APRIL,
+                        "Ведущий программист",
+                        "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). " +
+                                "Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа " +
+                                "результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."
+                )));
         CareerSection experience = new CareerSection(expList);
 
         ArrayList<Career> educationList = new ArrayList<>();
@@ -144,34 +140,34 @@ public class ResumeTest {
                 "Coursera",
                 "https://www.coursera.org/course/progfun",
                 new Career.Position(
-                    2013,
-                    Month.MARCH,
-                    2013,
-                    Month.MAY,
-                    "Functional Programming Principles in Scala", "by Martin Odersky"
-        )));
+                        2013,
+                        Month.MARCH,
+                        2013,
+                        Month.MAY,
+                        "Functional Programming Principles in Scala", "by Martin Odersky"
+                )));
         educationList.add(new Career(
                 "Luxoft",
                 "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366",
                 new Career.Position(
-                    2011,
-                    Month.MARCH,
-                    2011,
-                    Month.APRIL,
-                    "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML",
-                    "Курс"
-        )));
+                        2011,
+                        Month.MARCH,
+                        2011,
+                        Month.APRIL,
+                        "Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML",
+                        "Курс"
+                )));
         educationList.add(new Career(
                 "Siemens AG",
                 "http://www.siemens.ru/",
                 new Career.Position(
-                    2005,
-                    Month.JANUARY,
-                    2005,
-                    Month.APRIL,
-                    "3 месяца обучения мобильным IN сетям",
-                    "Берлин"
-        )));
+                        2005,
+                        Month.JANUARY,
+                        2005,
+                        Month.APRIL,
+                        "3 месяца обучения мобильным IN сетям",
+                        "Берлин"
+                )));
         CareerSection education = new CareerSection(educationList);
 
         RESUME1.addSection(SectionType.OBJECTIVE, objective);
@@ -180,6 +176,10 @@ public class ResumeTest {
         RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
         RESUME1.addSection(SectionType.EXPERIENCE, experience);
         RESUME1.addSection(SectionType.EDUCATION, education);
+    }
+
+
+    public static void main(String[] args) {
 
         System.out.println(RESUME1.getFullName());
 
