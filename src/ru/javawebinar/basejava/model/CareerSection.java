@@ -1,13 +1,19 @@
 package ru.javawebinar.basejava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CareerSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
 
-    private final List<Career> workPlaces;
+    private List<Career> workPlaces;
+
+    public CareerSection() {
+    }
 
     public CareerSection(List<Career> workPlaces) {
         Objects.requireNonNull(workPlaces, "workPlaces must not be null");
