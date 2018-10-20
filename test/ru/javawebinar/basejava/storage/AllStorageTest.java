@@ -14,7 +14,8 @@ import ru.javawebinar.basejava.serializer.JsonStreamSerializer;
     AbstractFileStorageTest.class,
     AbstractPathStorageTest.class,
     XmlPathStorageTest.class,
-    JsonStreamSerializer.class
+    JsonStreamSerializer.class,
+    DataPathStorageTest.class
 })
 public class AllStorageTest {
 }
