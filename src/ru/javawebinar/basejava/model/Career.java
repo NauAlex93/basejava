@@ -85,14 +85,14 @@ public class Career implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
             this.startDate = of(startYear, startMonth);
             this.endDate = of(endYear, endMonth);
             this.title = title;
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public LocalDate getStartDate() {
