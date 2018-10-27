@@ -25,7 +25,7 @@ public class ResumeTest {
         UUID_4 = "uuid4";
 
         RESUME1 = new Resume(UUID_1, "Григорий Кислин");
-        RESUME2 = new Resume(UUID_2, "Кодер");
+        RESUME2 = new Resume(UUID_2, "Кодер-тестировщик");
         RESUME3 = new Resume(UUID_3, "Хакер");
         RESUME4 = new Resume(UUID_4, "Юзер");
 
@@ -176,6 +176,81 @@ public class ResumeTest {
         RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
         RESUME1.addSection(SectionType.EXPERIENCE, experience);
         RESUME1.addSection(SectionType.EDUCATION, education);
+
+        RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
+        RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
+        RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
+
+        TextSection objectiveTest = new TextSection("Тестировщик. Пишу JUnit тесты");
+        TextSection personalTest = new TextSection("Аналитический склад ума.");
+
+        ArrayList<String> achListTest = new ArrayList<>();
+        achListTest.add("Написание тестов на JUnit c 2013 года.");
+        achListTest.add("Выявление багов в проектах любой сложности.");
+        ListSection achievementTest = new ListSection(achListTest);
+
+        ArrayList<String> qualListTest = new ArrayList<>();
+        qualListTest.add("JEE AS: Tomcat.");
+        qualListTest.add("Java Frameworks: Java 8, JUnit, Selenium, Retrofit, Spring (MVC, Security, Data, Clouds, Boot).");
+        qualListTest.add("Version control: Git.");
+        qualListTest.add("DB: PostgreSQL.");
+        ListSection qualificationsTest = new ListSection(qualListTest);
+
+        ArrayList<Career> expListTest = new ArrayList<>();
+        expListTest.add(new Career(
+                "Autodesk",
+                "https://www.autodesk.com/",
+                new Career.Position(
+                        2013,
+                        Month.OCTOBER,
+                        LocalDate.now().getYear(),
+                        LocalDate.now().getMonth(),
+                        "Senior Software Engineer",
+                        "Tests development, execution and support"
+                )));
+        expListTest.add(new Career(
+                "Kaspersky Labs",
+                "https://www.kaspersky.com/",
+                new Career.Position(
+                        2010,
+                        Month.OCTOBER,
+                        2013,
+                        Month.SEPTEMBER,
+                        "Senior Testing Engineer",
+                        "Tests development, execution and support"
+                )));
+        CareerSection experienceTest = new CareerSection(expListTest);
+
+        ArrayList<Career> educationListTest = new ArrayList<>();
+        educationListTest.add(new Career(
+                "Luxoft",
+                "http://www.luxoft-training.ru/",
+                new Career.Position(
+                        2013,
+                        Month.MARCH,
+                        2013,
+                        Month.MAY,
+                        "Тестирование Web-приложений", "Тестирование"
+                )));
+        educationListTest.add(new Career(
+                "Luxoft",
+                "http://www.luxoft-training.ru/",
+                new Career.Position(
+                        2011,
+                        Month.MARCH,
+                        2011,
+                        Month.APRIL,
+                        "Основные уязвимости в безопасности веб-приложений",
+                        "Тестирование на безопасность"
+                )));
+        CareerSection educationTest = new CareerSection(educationListTest);
+
+        RESUME2.addSection(SectionType.OBJECTIVE, objectiveTest);
+        RESUME2.addSection(SectionType.PERSONAL, personalTest);
+        RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
+        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
+        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
+        RESUME2.addSection(SectionType.EDUCATION, educationTest);
     }
 
 

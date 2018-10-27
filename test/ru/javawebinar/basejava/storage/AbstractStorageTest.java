@@ -1,7 +1,9 @@
 package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import ru.javawebinar.basejava.ResumeTest;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
@@ -14,6 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = new File("D:\\projects\\storage");

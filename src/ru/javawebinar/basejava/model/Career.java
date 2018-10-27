@@ -32,6 +32,11 @@ public class Career implements Serializable {
         this.positions = Arrays.asList(positions);
     }
 
+    public Career(String name, String url, List positions) {
+        this.link = new Link(name, url);
+        this.positions = positions;
+    }
+
     public Link getLink() {
         return link;
     }
