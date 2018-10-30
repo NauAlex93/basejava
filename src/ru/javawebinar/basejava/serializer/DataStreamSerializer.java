@@ -16,12 +16,12 @@ public class DataStreamSerializer implements StreamSerializer {
             dos.writeUTF(r.getUuid());
             dos.writeUTF(r.getFullName());
             Map<ContactType, String> contacts = r.getContacts();
-            write(dos, contacts.entrySet(), entry -> {
+            writeCollection(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             });
 
-            write(dos, r.getSections().entrySet(), entry -> {
+            writeCollection(dos, r.getSections().entrySet(), entry -> {
                 SectionType sectionType = entry.getKey();
                 AbstractSection section = entry.getValue();
                 dos.writeUTF(sectionType.name());
@@ -33,19 +33,17 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        write(dos, ((ListSection) section).getContent(), dos::writeUTF);
+                        writeCollection(dos, ((ListSection) section).getContent(), dos::writeUTF);
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        write(dos, ((CareerSection) section).getWorkPlaces(), career -> {
+                        writeCollection(dos, ((CareerSection) section).getWorkPlaces(), career -> {
                                     dos.writeUTF((career.getLink().getName()));
                                     dos.writeUTF((career.getLink().getUrl()));
 
-                                    write(dos, career.getPositions(), position -> {
-                                        dos.writeInt(position.getStartDate().getYear());
-                                        dos.writeInt(position.getStartDate().getMonth().getValue());
-                                        dos.writeInt(position.getEndDate().getYear());
-                                        dos.writeInt(position.getEndDate().getMonth().getValue());
+                                    writeCollection(dos, career.getPositions(), position -> {
+                                        writeLocalDate(dos, position.getStartDate());
+                                        writeLocalDate(dos, position.getEndDate());
                                         dos.writeUTF(position.getTitle());
                                         dos.writeUTF(position.getDescription());
                                     });
@@ -57,15 +55,24 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
-    private interface Consumer<T> {
-        void accept(T t) throws IOException;
+    private interface elementWriter<T> {
+        void write(T t) throws IOException;
     }
 
-    private <T> void write(DataOutputStream dos, Collection<T> collection, Consumer<T> consumer) throws IOException {
+    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, elementWriter<T> consumer) throws IOException {
         dos.writeInt(collection.size());
         for (T item : collection) {
-            consumer.accept(item);
+            consumer.write(item);
         }
+    }
+
+    private void writeLocalDate(DataOutputStream dos, LocalDate ld) throws IOException {
+        dos.writeInt(ld.getYear());
+        dos.writeInt(ld.getMonth().getValue());
+    }
+
+    private LocalDate readLocalDate(DataInputStream dis) throws IOException {
+        return LocalDate.of(dis.readInt(), dis.readInt(), 1);
     }
 
     @Override
@@ -74,54 +81,59 @@ public class DataStreamSerializer implements StreamSerializer {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            int contactsSize = dis.readInt();
 
-            for (int i = 0; i < contactsSize; i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
-
-            int sectionsSize = dis.readInt();
-            for (int i = 0; i < sectionsSize; i++) {
+            readItems(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+            readItems(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
-
-                switch (sectionType) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        resume.addSection(sectionType, new TextSection(dis.readUTF()));
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        int size = dis.readInt();
-                        List<String> list = new ArrayList<>();
-                        for (int j = 0; j < size; j++) {
-                            list.add(dis.readUTF());
-                        }
-                        resume.addSection(sectionType, new ListSection(list));
-                        break;
-                    case EXPERIENCE:
-                    case EDUCATION:
-                        int careerListSize = dis.readInt();
-                        List<Career> careerList = new ArrayList<>();
-                        for (int k = 0; k < careerListSize; k++) {
-                            String name = dis.readUTF();
-                            String url = dis.readUTF();
-                            int positionListSize = dis.readInt();
-                            List<Career.Position> positionList = new ArrayList<>();
-                            for (int l = 0; l < positionListSize; l++) {
-                                LocalDate startDate = LocalDate.of(dis.readInt(), dis.readInt(), 1);
-                                LocalDate endDate = LocalDate.of(dis.readInt(), dis.readInt(), 1);
-                                String title = dis.readUTF();
-                                String descripton = dis.readUTF();
-                                positionList.add(new Career.Position(startDate, endDate, title, descripton));
-                            }
-
-                            careerList.add(new Career(name, url, positionList));
-                        }
-                        resume.addSection(sectionType, new CareerSection(careerList));
-                        break;
-                }
-            }
+                resume.addSection(sectionType, readSection(dis, sectionType));
+            });
             return resume;
         }
+    }
+
+    private AbstractSection readSection(DataInputStream dis, SectionType sectionType) throws IOException {
+        switch (sectionType) {
+            case PERSONAL:
+            case OBJECTIVE:
+                return new TextSection(dis.readUTF());
+            case ACHIEVEMENT:
+            case QUALIFICATIONS:
+                return new ListSection(readList(dis, dis::readUTF));
+            case EXPERIENCE:
+            case EDUCATION:
+                return new CareerSection(
+                        readList(dis, () -> new Career(
+                                dis.readUTF(), dis.readUTF(),
+                                readList(dis, () -> new Career.Position(
+                                        readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
+                                ))
+                        )));
+            default:
+                throw new IllegalStateException();
+        }
+    }
+
+    private interface elementReader<T> {
+        T read() throws IOException;
+    }
+
+    private interface elementProcessor {
+        void process() throws IOException;
+    }
+
+    private void readItems(DataInputStream dis, elementProcessor processor) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            processor.process();
+        }
+    }
+
+    private <T> List<T> readList(DataInputStream dis, elementReader<T> reader) throws IOException {
+        int size = dis.readInt();
+        List<T> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(reader.read());
+        }
+        return list;
     }
 }
