@@ -5,8 +5,8 @@ import java.util.List;
 
 public class MainConcurrency {
     private static int counter;
-    private static final Object LOCK1 = new Object();
-    private static final Object LOCK2 = new Object();
+    private static final String LOCK1 = "LOCK1";
+    private static final String LOCK2 = "LOCK2";
 
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName());
@@ -63,44 +63,28 @@ public class MainConcurrency {
 
         public static void main(String[] args) {
             Thread thread0 = new Thread(() -> {
-                inc(Thread.currentThread());
+                inc(LOCK1, LOCK2);
             });
             Thread thread1 = new Thread(() -> {
-                inc2(Thread.currentThread());
+                inc(LOCK2, LOCK1);
             });
             thread0.start();
             thread1.start();
         }
 
 
-        private static void inc(Thread thread) {
+        private static void inc(String LOCK1, String LOCK2) {
             synchronized (LOCK1) {
-                System.out.println(thread.getName() + " holding lock 1");
+                System.out.println("holding " + LOCK1);
 
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-                System.out.println(thread.getName() + " waiting for lock2");
+                System.out.println("waiting for " + LOCK2);
                 synchronized (LOCK2) {
-                    System.out.println(thread.getName() + " holding lock1 and lock2");
-                }
-            }
-        }
-
-        private static void inc2(Thread thread) {
-            synchronized (LOCK2) {
-                System.out.println(thread.getName() + " holding lock 2");
-
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                System.out.println(thread.getName() + " waiting for lock1");
-                synchronized (LOCK1) {
-                    System.out.println(thread.getName() + " holding lock2 and lock1");
+                    System.out.println("holding LOCK1 and LOCK2");
                 }
             }
         }
