@@ -23,13 +23,22 @@ public class MainStream {
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
 
-        int sum = integers.stream().mapToInt(Integer::intValue).sum();
-        boolean isEven = sum % 2 == 0;
-        System.out.println(sum);
-
         return integers.stream()
-                .filter(integer -> (integer % 2 != 0) == isEven)
-                .collect(Collectors.toList());
+                .collect(Collectors.partitioningBy(i -> i % 2 == 0))
+                .get(integers.stream()
+                .mapToInt(Integer::intValue)
+                .sum() % 2 != 0);
+
+//        int sum = integers.stream()
+//                      .mapToInt(Integer::intValue)
+//                      .sum();
+//
+//        boolean isEven = sum % 2 == 0;
+//        System.out.println(sum);
+//
+//        return integers.stream()
+//                .filter(integer -> (integer % 2 != 0) == isEven)
+//                .collect(Collectors.toList());
     }
 
 }
