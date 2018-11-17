@@ -29,13 +29,13 @@ public class ResumeTest {
         RESUME3 = new Resume(UUID_3, "Хакер");
         RESUME4 = new Resume(UUID_4, "Юзер");
 
-        RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
-        RESUME1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-        RESUME1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        RESUME1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        RESUME1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        RESUME1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+//        RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+//        RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
+//        RESUME1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+//        RESUME1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+//        RESUME1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+//        RESUME1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+//        RESUME1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
         TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
@@ -170,16 +170,16 @@ public class ResumeTest {
                 )));
         CareerSection education = new CareerSection(educationList);
 
-        RESUME1.addSection(SectionType.OBJECTIVE, objective);
-        RESUME1.addSection(SectionType.PERSONAL, personal);
-        RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
-        RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
-        RESUME1.addSection(SectionType.EXPERIENCE, experience);
-        RESUME1.addSection(SectionType.EDUCATION, education);
-
-        RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
-        RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
-        RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
+//        RESUME1.addSection(SectionType.OBJECTIVE, objective);
+//        RESUME1.addSection(SectionType.PERSONAL, personal);
+//        RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
+//        RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
+//        RESUME1.addSection(SectionType.EXPERIENCE, experience);
+//        RESUME1.addSection(SectionType.EDUCATION, education);
+//
+//        RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
+//        RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
+//        RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
 
         TextSection objectiveTest = new TextSection("Тестировщик. Пишу JUnit тесты");
         TextSection personalTest = new TextSection("Аналитический склад ума.");
@@ -245,12 +245,12 @@ public class ResumeTest {
                 )));
         CareerSection educationTest = new CareerSection(educationListTest);
 
-        RESUME2.addSection(SectionType.OBJECTIVE, objectiveTest);
-        RESUME2.addSection(SectionType.PERSONAL, personalTest);
-        RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
-        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
-        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
-        RESUME2.addSection(SectionType.EDUCATION, educationTest);
+//        RESUME2.addSection(SectionType.OBJECTIVE, objectiveTest);
+//        RESUME2.addSection(SectionType.PERSONAL, personalTest);
+//        RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
+//        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
+//        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
+//        RESUME2.addSection(SectionType.EDUCATION, educationTest);
     }
 
 
