@@ -5,6 +5,7 @@ import ru.javawebinar.basejava.model.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ResumeTest {
 
@@ -19,23 +20,23 @@ public class ResumeTest {
     private static final Resume RESUME4;
 
     static{
-        UUID_1 = "uuid1";
-        UUID_2 = "uuid2";
-        UUID_3 = "uuid3";
-        UUID_4 = "uuid4";
+        UUID_1 = UUID.randomUUID().toString();
+        UUID_2 = UUID.randomUUID().toString();
+        UUID_3 = UUID.randomUUID().toString();
+        UUID_4 = UUID.randomUUID().toString();
 
         RESUME1 = new Resume(UUID_1, "Григорий Кислин");
         RESUME2 = new Resume(UUID_2, "Кодер-тестировщик");
         RESUME3 = new Resume(UUID_3, "Хакер");
         RESUME4 = new Resume(UUID_4, "Юзер");
 
-//        RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
-//        RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
-//        RESUME1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-//        RESUME1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-//        RESUME1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-//        RESUME1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-//        RESUME1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+        RESUME1.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        RESUME1.addContact(ContactType.SKYPE, "grigory.kislin");
+        RESUME1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+        RESUME1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        RESUME1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        RESUME1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
+        RESUME1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
         TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
@@ -177,9 +178,17 @@ public class ResumeTest {
 //        RESUME1.addSection(SectionType.EXPERIENCE, experience);
 //        RESUME1.addSection(SectionType.EDUCATION, education);
 //
-//        RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
-//        RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
-//        RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
+        RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
+        RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
+        RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
+
+        RESUME3.addContact(ContactType.PHONE, "+1-031-584-44");
+        RESUME3.addContact(ContactType.MAIL, "h@gmail.com");
+        RESUME3.addContact(ContactType.LINKEDIN, "https://www.jetbrains.com");
+
+        RESUME4.addContact(ContactType.PHONE, "8-888-88-88");
+        RESUME4.addContact(ContactType.MAIL, "test@rambler.ru");
+        RESUME4.addContact(ContactType.LINKEDIN, "https://www.test.com");
 
         TextSection objectiveTest = new TextSection("Тестировщик. Пишу JUnit тесты");
         TextSection personalTest = new TextSection("Аналитический склад ума.");
@@ -251,6 +260,13 @@ public class ResumeTest {
 //        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
 //        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
 //        RESUME2.addSection(SectionType.EDUCATION, educationTest);
+//
+//        RESUME4.addSection(SectionType.OBJECTIVE, objectiveTest);
+//        RESUME4.addSection(SectionType.PERSONAL, personalTest);
+//        RESUME4.addSection(SectionType.ACHIEVEMENT, achievementTest);
+//        RESUME4.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
+//        RESUME4.addSection(SectionType.EXPERIENCE, experienceTest);
+//        RESUME4.addSection(SectionType.EDUCATION, educationTest);
     }
 
 
