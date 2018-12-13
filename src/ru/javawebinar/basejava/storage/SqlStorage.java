@@ -39,23 +39,28 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        return sqlHelper.sqlExecution(
-                "     SELECT * FROM resume r " +
-                        " LEFT JOIN contact c " +
-                        "        ON r.uuid = c.resume_uuid " +
-                        "     WHERE r.uuid =?",
-                ps -> {
-                    ps.setString(1, uuid);
-                    ResultSet rs = ps.executeQuery();
-                    if (!rs.next()) {
+        return sqlHelper.transactionalExecute(conn -> {
+            Resume resume;
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume r WHERE r.uuid = ?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) {
+                    throw new NotExistStorageException(uuid);
+                }
+                resume = new Resume(uuid, rs.getString("full_name"));
+                try (PreparedStatement pss = conn.prepareStatement("SELECT * FROM contact c WHERE c.resume_uuid = ?")) {
+                    pss.setString(1, uuid);
+                    ResultSet rss = pss.executeQuery();
+                    if (!rss.next()) {
                         throw new NotExistStorageException(uuid);
                     }
-                    Resume resume = new Resume(uuid, rs.getString("full_name"));
                     do {
-                        addContact(resume, rs);
-                    } while (rs.next());
-                    return resume;
-                });
+                        addContact(resume, rss);
+                    } while (rss.next());
+                }
+            }
+            return resume;
+        });
     }
 
     @Override
@@ -113,7 +118,7 @@ public class SqlStorage implements Storage {
                         }
                         addContact(resume, rs);
                     }
-                    if(resume != null){
+                    if (resume != null) {
                         resumeList.add(resume);
                     }
                     return resumeList;
