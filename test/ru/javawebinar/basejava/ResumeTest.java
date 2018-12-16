@@ -171,10 +171,10 @@ public class ResumeTest {
                 )));
         CareerSection education = new CareerSection(educationList);
 
-//        RESUME1.addSection(SectionType.OBJECTIVE, objective);
-//        RESUME1.addSection(SectionType.PERSONAL, personal);
-//        RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
-//        RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
+        RESUME1.addSection(SectionType.OBJECTIVE, objective);
+        RESUME1.addSection(SectionType.PERSONAL, personal);
+        RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
+        RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
 //        RESUME1.addSection(SectionType.EXPERIENCE, experience);
 //        RESUME1.addSection(SectionType.EDUCATION, education);
 //
@@ -254,17 +254,17 @@ public class ResumeTest {
                 )));
         CareerSection educationTest = new CareerSection(educationListTest);
 
-//        RESUME2.addSection(SectionType.OBJECTIVE, objectiveTest);
-//        RESUME2.addSection(SectionType.PERSONAL, personalTest);
-//        RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
-//        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
+        RESUME2.addSection(SectionType.OBJECTIVE, objectiveTest);
+        RESUME2.addSection(SectionType.PERSONAL, personalTest);
+        RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
+        RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
 //        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
 //        RESUME2.addSection(SectionType.EDUCATION, educationTest);
-//
-//        RESUME4.addSection(SectionType.OBJECTIVE, objectiveTest);
-//        RESUME4.addSection(SectionType.PERSONAL, personalTest);
-//        RESUME4.addSection(SectionType.ACHIEVEMENT, achievementTest);
-//        RESUME4.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
+
+        RESUME4.addSection(SectionType.OBJECTIVE, objectiveTest);
+        RESUME4.addSection(SectionType.PERSONAL, personalTest);
+        RESUME4.addSection(SectionType.ACHIEVEMENT, achievementTest);
+        RESUME4.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
 //        RESUME4.addSection(SectionType.EXPERIENCE, experienceTest);
 //        RESUME4.addSection(SectionType.EDUCATION, educationTest);
     }
