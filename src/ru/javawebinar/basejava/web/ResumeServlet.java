@@ -1,14 +1,14 @@
 package ru.javawebinar.basejava.web;
 
 import ru.javawebinar.basejava.Config;
-import ru.javawebinar.basejava.model.ContactType;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 import ru.javawebinar.basejava.storage.Storage;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ResumeServlet extends HttpServlet {
 
@@ -28,10 +28,33 @@ public class ResumeServlet extends HttpServlet {
         r.setFullName(fullName);
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
-            if (value != null && value.trim().length() != 0) {
-                r.addContact(type, value);
-            } else {
+            if (value == null || value.trim().length() == 0) {
                 r.getContacts().remove(type);
+            } else {
+                r.addContact(type, value);
+            }
+        }
+        for (SectionType type : SectionType.values()) {
+
+            if (type == SectionType.EXPERIENCE || type == SectionType.EDUCATION)
+            {
+                break;
+            }
+
+            String value = request.getParameter(type.name());
+            if (value == null || value.trim().length() == 0) {
+                r.getSections().remove(type);
+            } else {
+                switch (type) {
+                    case OBJECTIVE:
+                    case PERSONAL:
+                        r.addSection(type, new TextSection(value));
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        r.addSection(type, new ListSection(Arrays.asList(value.split("\\n"))));
+                        break;
+                }
             }
         }
         storage.update(r);

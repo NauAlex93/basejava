@@ -175,9 +175,9 @@ public class ResumeTest {
         RESUME1.addSection(SectionType.PERSONAL, personal);
         RESUME1.addSection(SectionType.ACHIEVEMENT, achievement);
         RESUME1.addSection(SectionType.QUALIFICATIONS, qualifications);
-//        RESUME1.addSection(SectionType.EXPERIENCE, experience);
-//        RESUME1.addSection(SectionType.EDUCATION, education);
-//
+        RESUME1.addSection(SectionType.EXPERIENCE, experience);
+        RESUME1.addSection(SectionType.EDUCATION, education);
+
         RESUME2.addContact(ContactType.PHONE, "8-800-555-35-35");
         RESUME2.addContact(ContactType.MAIL, "test@mail.ru");
         RESUME2.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/test");
@@ -258,8 +258,8 @@ public class ResumeTest {
         RESUME2.addSection(SectionType.PERSONAL, personalTest);
         RESUME2.addSection(SectionType.ACHIEVEMENT, achievementTest);
         RESUME2.addSection(SectionType.QUALIFICATIONS, qualificationsTest);
-//        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
-//        RESUME2.addSection(SectionType.EDUCATION, educationTest);
+        RESUME2.addSection(SectionType.EXPERIENCE, experienceTest);
+        RESUME2.addSection(SectionType.EDUCATION, educationTest);
 
         RESUME4.addSection(SectionType.OBJECTIVE, objectiveTest);
         RESUME4.addSection(SectionType.PERSONAL, personalTest);
