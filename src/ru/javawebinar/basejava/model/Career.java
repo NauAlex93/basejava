@@ -18,6 +18,7 @@ import static ru.javawebinar.basejava.util.DateUtil.of;
 public class Career implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final Career EMPTY_CAREER_SECTION = new Career("", "");
 
     private Link link;
     private List<Position> positions;

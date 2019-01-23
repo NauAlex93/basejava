@@ -38,17 +38,10 @@
                 </td>
             </tr>
             <c:choose>
-                <c:when test="${type=='OBJECTIVE'}">
+                <c:when test="${type=='OBJECTIVE' || type=='PERSONAL'}">
                     <tr>
                         <td>
                             <h3><%=((TextSection) section).getText()%></h3>
-                        </td>
-                    </tr>
-                </c:when>
-                <c:when test="${type=='PERSONAL'}">
-                    <tr>
-                        <td>
-                            <%=((TextSection) section).getText()%>
                         </td>
                     </tr>
                 </c:when>

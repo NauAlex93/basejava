@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.web;
 
+import com.mysql.cj.util.StringUtils;
 import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.model.*;
 import ru.javawebinar.basejava.storage.Storage;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ResumeServlet extends HttpServlet {
 
@@ -24,8 +26,18 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-        Resume r = storage.get(uuid);
-        r.setFullName(fullName);
+        Resume r;
+        boolean isResumeToAdd = StringUtils.isNullOrEmpty(uuid);
+
+        if (isResumeToAdd) {
+            r = new Resume(fullName);
+        }
+        else
+        {
+            r = storage.get(uuid);
+            r.setFullName(fullName);
+        }
+
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (value == null || value.trim().length() == 0) {
@@ -57,7 +69,15 @@ public class ResumeServlet extends HttpServlet {
                 }
             }
         }
-        storage.update(r);
+
+        if (isResumeToAdd)
+        {
+            storage.save(r);
+        }
+        else
+        {
+            storage.update(r);
+        }
         response.sendRedirect("resume");
     }
 
@@ -78,8 +98,44 @@ public class ResumeServlet extends HttpServlet {
                 response.sendRedirect("resume");
                 return;
             case "view":
+                resume = storage.get(uuid);
+                break;
             case "edit":
                 resume = storage.get(uuid);
+                for (SectionType type : SectionType.values()) {
+
+                    AbstractSection section = resume.getSection(type);
+                    switch (type) {
+                        case OBJECTIVE:
+                        case PERSONAL:
+                            if (section == null) {
+                                section = TextSection.EMPTY_TEXT_SECTION;
+                            }
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            if (section == null) {
+                                section = ListSection.EMPTY_LIST_SECTION;
+                            }
+                            break;
+                        case EDUCATION:
+                        case EXPERIENCE:
+                            if (section == null) {
+                                section = new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION));
+                            }
+                            break;
+                    }
+                    resume.addSection(type, section);
+                }
+                break;
+            case "add":
+                resume = Resume.EMPTY_RESUME;
+                resume.addSection(SectionType.OBJECTIVE, TextSection.EMPTY_TEXT_SECTION);
+                resume.addSection(SectionType.PERSONAL, TextSection.EMPTY_TEXT_SECTION);
+                resume.addSection(SectionType.ACHIEVEMENT, ListSection.EMPTY_LIST_SECTION);
+                resume.addSection(SectionType.QUALIFICATIONS, ListSection.EMPTY_LIST_SECTION);
+                resume.addSection(SectionType.EXPERIENCE, new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION)));
+                resume.addSection(SectionType.EDUCATION, new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION)));
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");

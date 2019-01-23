@@ -17,19 +17,6 @@
             <th></th>
             <th></th>
         </tr>
-        <%--<%--%>
-            <%--for (Resume resume : (List<Resume>) request.getAttribute("resumes")) {--%>
-        <%--%>--%>
-        <%--<tr>--%>
-            <%--<td><a href="resume?uuid=<%=resume.getUuid()%>"><%=resume.getFullName()%>--%>
-            <%--</a>--%>
-            <%--</td>--%>
-            <%--<td><%=resume.getContact(ContactType.MAIL)%>--%>
-            <%--</td>--%>
-        <%--</tr>--%>
-        <%--<%--%>
-            <%--}--%>
-        <%--%>--%>
 
         <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="ru.javawebinar.basejava.model.Resume"/>
@@ -41,6 +28,7 @@
             </tr>
         </c:forEach>
 
+        <a href="resume?action=add">Добавить</a>
     </table>
 </section>
 <jsp:include page="fragments/footer.jsp"/>

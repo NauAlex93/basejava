@@ -42,6 +42,8 @@
                     <textarea name='${type}' cols=75
                               rows=5><%=String.join("\n", ((ListSection) section).getContent())%></textarea>
                 </c:when>
+                <c:when test="${type=='EXPERIENCE' || type=='EDUCATION'}">
+                </c:when>
             </c:choose>
         </c:forEach>
         <button type="submit">Сохранить</button>

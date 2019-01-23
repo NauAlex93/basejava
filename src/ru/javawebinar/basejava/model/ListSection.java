@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,6 +8,8 @@ import java.util.Objects;
 public class ListSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
+    public static final ListSection EMPTY_LIST_SECTION = new ListSection(Collections.singletonList(""));
+
 
     private List<String> content;
 

@@ -25,6 +25,8 @@ public class Resume implements Serializable {
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
+    public static final Resume EMPTY_RESUME = new Resume();
+
     public Resume() {
     }
 
