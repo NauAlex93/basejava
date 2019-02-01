@@ -12,13 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static ru.javawebinar.basejava.util.DateUtil.NOW;
 import static ru.javawebinar.basejava.util.DateUtil.of;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Career implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final Career EMPTY_CAREER_SECTION = new Career("", "");
+    public static final Career EMPTY_CAREER_SECTION = new Career("", "", Position.EMPTY);
 
     private Link link;
     private List<Position> positions;
@@ -27,12 +28,11 @@ public class Career implements Serializable {
     }
 
     public Career(String name, String url, Position... positions) {
-        this.link = new Link(name, url);
-        this.positions = Arrays.asList(positions);
+        this(new Link(name, url), Arrays.asList(positions));
     }
 
-    public Career(String name, String url, List positions) {
-        this.link = new Link(name, url);
+    public Career(Link link, List<Position> positions) {
+        this.link = link;
         this.positions = positions;
     }
 
@@ -65,11 +65,12 @@ public class Career implements Serializable {
 
     @Override
     public String toString() {
-        return link + ", " + positions ;
+        return "Career(" + link + "," + positions + ')';
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
+        public static final Position EMPTY = new Position();
 
         private static final long serialVersionUID = 1L;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -92,11 +93,12 @@ public class Career implements Serializable {
             this.description = description == null ? "" : description;
         }
 
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
+        }
+
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
-            this.startDate = of(startYear, startMonth);
-            this.endDate = of(endYear, endMonth);
-            this.title = title;
-            this.description = description == null ? "" : description;
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
         }
 
         public LocalDate getStartDate() {
@@ -134,7 +136,7 @@ public class Career implements Serializable {
 
         @Override
         public String toString() {
-            return startDate + " - " + endDate + ", " + title + ", " + description;
+            return "Position(" + startDate + ',' + endDate + ',' + title + ',' + description + ')';
         }
     }
 }

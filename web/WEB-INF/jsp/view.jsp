@@ -1,7 +1,7 @@
 <%@ page import="ru.javawebinar.basejava.model.CareerSection" %>
 <%@ page import="ru.javawebinar.basejava.model.ListSection" %>
 <%@ page import="ru.javawebinar.basejava.model.TextSection" %>
-<%@ page import="ru.javawebinar.basejava.util.DateUtil" %>
+<%@ page import="ru.javawebinar.basejava.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -23,14 +23,14 @@
         </c:forEach>
     <p>
     <hr>
-    <table>
+    <table cellpadding="2">
         <c:forEach var="sectionEntry" items="${resume.sections}">
             <jsp:useBean id="sectionEntry"
                          type="java.util.Map.Entry<ru.javawebinar.basejava.model.SectionType, ru.javawebinar.basejava.model.AbstractSection>"/>
             <c:set var="type" value="${sectionEntry.key}"/>
             <c:set var="section" value="${sectionEntry.value}"/>
             <jsp:useBean id="section" type="ru.javawebinar.basejava.model.AbstractSection"/>
-            <tr>
+            <tr colspan="2">
                 <td>
                     <h2>
                         <a name="type.name">${type.title}</a>
@@ -40,14 +40,14 @@
             <c:choose>
                 <c:when test="${type=='OBJECTIVE' || type=='PERSONAL'}">
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <h3><%=((TextSection) section).getText()%></h3>
                         </td>
                     </tr>
                 </c:when>
                 <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <ul>
                                 <c:forEach var="item" items="<%=((ListSection) section).getContent()%>">
                                     <li>${item}</li>
@@ -59,7 +59,7 @@
                 <c:when test="${type=='EXPERIENCE' || type=='EDUCATION'}">
                     <c:forEach var="careerSect" items="<%=((CareerSection) section).getWorkPlaces()%>">
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <c:choose>
                                     <c:when test="${empty careerSect.link.url}">
                                         <h3>${careerSect.link.name}</h3>
@@ -75,8 +75,8 @@
                         <c:forEach var="position" items="${careerSect.positions}">
                             <jsp:useBean id="position" type="ru.javawebinar.basejava.model.Career.Position"/>
                             <tr>
-                                <td style="vertical-align: top">
-                                    <%=DateUtil.dateToString(position.getStartDate(), position.getEndDate())%>
+                                <td  width="15%" style="vertical-align: top">
+                                    <%=HtmlUtil.formatDates(position)%>
                                 </td>
                                 <td>
                                     <b>${position.title}</b><br>${position.description}
@@ -89,6 +89,7 @@
         </c:forEach>
     </table>
     <br/>
+    <button onclick="window.history.back()">ОК</button>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

@@ -1,16 +1,17 @@
 package ru.javawebinar.basejava.web;
 
-import com.mysql.cj.util.StringUtils;
 import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.model.*;
 import ru.javawebinar.basejava.storage.Storage;
+import ru.javawebinar.basejava.util.DateUtil;
+import ru.javawebinar.basejava.util.HtmlUtil;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
 
@@ -27,34 +28,28 @@ public class ResumeServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         Resume r;
-        boolean isResumeToAdd = StringUtils.isNullOrEmpty(uuid);
+        boolean isResumeToAdd = uuid == null || uuid.trim().length() == 0;
 
         if (isResumeToAdd) {
             r = new Resume(fullName);
-        }
-        else
-        {
+        } else {
             r = storage.get(uuid);
             r.setFullName(fullName);
         }
 
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
-            if (value == null || value.trim().length() == 0) {
+            if (HtmlUtil.isEmpty(value)) {
                 r.getContacts().remove(type);
             } else {
                 r.addContact(type, value);
             }
         }
         for (SectionType type : SectionType.values()) {
-
-            if (type == SectionType.EXPERIENCE || type == SectionType.EDUCATION)
-            {
-                break;
-            }
-
             String value = request.getParameter(type.name());
-            if (value == null || value.trim().length() == 0) {
+            String[] values = request.getParameterValues(type.name());
+
+            if (HtmlUtil.isEmpty(value) && values.length < 2) {
                 r.getSections().remove(type);
             } else {
                 switch (type) {
@@ -64,18 +59,37 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        r.addSection(type, new ListSection(Arrays.asList(value.split("\\n"))));
+                        r.addSection(type, new ListSection(value.split("\\n")));
+                        break;
+                    case EDUCATION:
+                    case EXPERIENCE:
+                        List<Career> careers = new ArrayList<>();
+                        String[] urls = request.getParameterValues(type.name() + "url");
+                        for (int i = 0; i < values.length; i++) {
+                            String name = values[i];
+                            if (!HtmlUtil.isEmpty(name)) {
+                                List<Career.Position> positions = new ArrayList<>();
+                                String pfx = type.name() + i;
+                                String[] startDates = request.getParameterValues(pfx + "startDate");
+                                String[] endDates = request.getParameterValues(pfx + "endDate");
+                                String[] titles = request.getParameterValues(pfx + "title");
+                                String[] descriptions = request.getParameterValues(pfx + "description");
+                                for (int j = 0; j < titles.length; j++) {
+                                    if (!HtmlUtil.isEmpty(titles[j])) {
+                                        positions.add(new Career.Position(DateUtil.parse(startDates[j]), DateUtil.parse(endDates[j]), titles[j], descriptions[j]));
+                                    }
+                                }
+                                careers.add(new Career(new Link(name, urls[i]), positions));
+                            }
+                        }
+                        r.addSection(type, new CareerSection(careers));
                         break;
                 }
             }
         }
-
-        if (isResumeToAdd)
-        {
+        if (isResumeToAdd) {
             storage.save(r);
-        }
-        else
-        {
+        } else {
             storage.update(r);
         }
         response.sendRedirect("resume");
@@ -84,8 +98,7 @@ public class ResumeServlet extends HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String uuid = request.getParameter("uuid");
         String action = request.getParameter("action");
-        if (action == null)
-        {
+        if (action == null) {
             request.setAttribute("resumes", storage.getAllSorted());
             request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
             return;
@@ -99,6 +112,9 @@ public class ResumeServlet extends HttpServlet {
                 return;
             case "view":
                 resume = storage.get(uuid);
+                break;
+            case "add":
+                resume = Resume.EMPTY_RESUME;
                 break;
             case "edit":
                 resume = storage.get(uuid);
@@ -118,24 +134,24 @@ public class ResumeServlet extends HttpServlet {
                                 section = ListSection.EMPTY_LIST_SECTION;
                             }
                             break;
-                        case EDUCATION:
                         case EXPERIENCE:
-                            if (section == null) {
-                                section = new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION));
+                        case EDUCATION:
+                            CareerSection careerSection = (CareerSection) section;
+                            List<Career> emptyFirstCareers = new ArrayList<>();
+                            emptyFirstCareers.add(Career.EMPTY_CAREER_SECTION);
+                            if (careerSection != null) {
+                                for (Career career : careerSection.getWorkPlaces()) {
+                                    List<Career.Position> emptyFirstPositions = new ArrayList<>();
+                                    emptyFirstPositions.add(Career.Position.EMPTY);
+                                    emptyFirstPositions.addAll(career.getPositions());
+                                    emptyFirstCareers.add(new Career(career.getLink(), emptyFirstPositions));
+                                }
                             }
+                            section = new CareerSection(emptyFirstCareers);
                             break;
                     }
                     resume.addSection(type, section);
                 }
-                break;
-            case "add":
-                resume = Resume.EMPTY_RESUME;
-                resume.addSection(SectionType.OBJECTIVE, TextSection.EMPTY_TEXT_SECTION);
-                resume.addSection(SectionType.PERSONAL, TextSection.EMPTY_TEXT_SECTION);
-                resume.addSection(SectionType.ACHIEVEMENT, ListSection.EMPTY_LIST_SECTION);
-                resume.addSection(SectionType.QUALIFICATIONS, ListSection.EMPTY_LIST_SECTION);
-                resume.addSection(SectionType.EXPERIENCE, new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION)));
-                resume.addSection(SectionType.EDUCATION, new CareerSection(Collections.singletonList(Career.EMPTY_CAREER_SECTION)));
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");

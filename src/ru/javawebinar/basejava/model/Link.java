@@ -19,7 +19,7 @@ public class Link implements Serializable {
     public Link(String name, String url) {
         Objects.requireNonNull(name, "name must not be null");
         this.name = name;
-        this.url = url  == null ? "" : url;
+        this.url = url == null ? "" : url;
     }
 
     public String getName() {
@@ -32,7 +32,7 @@ public class Link implements Serializable {
 
     @Override
     public String toString() {
-        return name + ", " + url;
+        return "Link(" + name + ',' + url ;
     }
 
     @Override
@@ -40,13 +40,16 @@ public class Link implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Link link = (Link) o;
-        return Objects.equals(name, link.name) &&
-                Objects.equals(url, link.url);
+
+        if (!name.equals(link.name)) return false;
+        return url != null ? url.equals(link.url) : link.url == null;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, url);
+        int result = name.hashCode();
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
     }
 }

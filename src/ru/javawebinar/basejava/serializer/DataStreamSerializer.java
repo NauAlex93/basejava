@@ -103,7 +103,7 @@ public class DataStreamSerializer implements StreamSerializer {
             case EDUCATION:
                 return new CareerSection(
                         readList(dis, () -> new Career(
-                                dis.readUTF(), dis.readUTF(),
+                                new Link(dis.readUTF(), dis.readUTF()),
                                 readList(dis, () -> new Career.Position(
                                         readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
                                 ))

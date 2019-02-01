@@ -19,13 +19,22 @@ public class Resume implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Resume EMPTY_RESUME = new Resume();
+
+    static {
+        EMPTY_RESUME.addSection(SectionType.OBJECTIVE, TextSection.EMPTY_TEXT_SECTION);
+        EMPTY_RESUME.addSection(SectionType.PERSONAL, TextSection.EMPTY_TEXT_SECTION);
+        EMPTY_RESUME.addSection(SectionType.ACHIEVEMENT, ListSection.EMPTY_LIST_SECTION);
+        EMPTY_RESUME.addSection(SectionType.QUALIFICATIONS, ListSection.EMPTY_LIST_SECTION);
+        EMPTY_RESUME.addSection(SectionType.EXPERIENCE, new CareerSection(Career.EMPTY_CAREER_SECTION));
+        EMPTY_RESUME.addSection(SectionType.EDUCATION, new CareerSection(Career.EMPTY_CAREER_SECTION));
+    }
+
     // Unique identifier
     private String uuid;
     private String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-
-    public static final Resume EMPTY_RESUME = new Resume();
 
     public Resume() {
     }
@@ -96,6 +105,6 @@ public class Resume implements Serializable {
 
     @Override
     public String toString() {
-        return uuid;
+        return uuid + '(' + fullName + ')';
     }
 }
